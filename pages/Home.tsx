@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTint, faWind, faThermometer } from "@fortawesome/free-solid-svg-icons";
 import { FaSearch } from "react-icons/fa";
@@ -22,25 +23,6 @@ interface HourlyForecastProps {
   temperature: string;
   description: string;
   icon: string;
-}
-
-interface WeatherResponse {
-  main: {
-    temp: number;
-    humidity: number;
-    feels_like: number;
-  };
-  weather: {
-    description: string;
-    icon: string;
-  }[];
-  wind: {
-    speed: number;
-  };
-}
-
-interface LocationResponse {
-  name: string;
 }
 
 interface HourlyForecastItem {
@@ -295,7 +277,13 @@ const Home: React.FC = () => {
     <div className="bg-cover bg-gradient-to-r from-gray-700 to-gray-300 h-screen p-6">
       <div className="bg-black/25 mx-auto max-w-3xl mt-3 py-10 px-28 p-8 rounded-lg shadow-md">
         {loading ? (
-          <div className="text-white text-lg">Loading...</div>
+          <div className="text-white text-lg">
+            <Skeleton height={30} width={200} />
+            <Skeleton height={200} />
+            <Skeleton height={30} width={150} />
+            <Skeleton height={30} width={200} />
+            <Skeleton height={200} />
+          </div>
         ) : (
           <div className="flex flex-col md:first-letter:flex-row justify-between items-center">
             <div className="flex items-center">
