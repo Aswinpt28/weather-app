@@ -167,7 +167,7 @@ const Home: React.FC = () => {
   const fetch5DayForecastData = async (city: string) => {
     try {
       if (!city.trim()) {
-        console.error("City name is empty");
+        // console.error("City name is empty");
         return;
       }
 
@@ -193,8 +193,7 @@ const Home: React.FC = () => {
 
         setFiveDayForecast(fiveDayForecastData);
       } else {
-        console.error(`City not found: ${city}`);
-        toast.error(`City not found: ${city}. Please enter a valid city name.`, {
+        toast.error(`Not found: ${city}. Please enter a valid city name.`, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
@@ -275,8 +274,8 @@ const Home: React.FC = () => {
   }, [currentLocation]);
 
   return (
-    <div className="bg-cover bg-gradient-to-r from-gray-700 to-gray-300 min-h-screen p-6">
-      <div className="bg-black/25 mx-auto max-w-3xl mt-3 py-10 px-4 md:px-10 lg:px-20 xl:px-28 p-8 rounded-lg shadow-md">
+    <div className="  bg-cover bg-gradient-to-r from-blue-700 to-blue-300 min-h-screen p-6">
+      <div className="bg-black/15 mx-auto max-w-3xl mt-3 py-10 px-4 md:px-10 lg:px-20 xl:px-28 p-8 rounded-lg shadow-md">
 
         {loading ? (
           <div className="text-white text-lg">
@@ -313,14 +312,15 @@ const Home: React.FC = () => {
             )}
 
             {currentWeather && (
-              <div className="mt-2 flex flex-col md:first-letter:flex-row justify-between items-center md:items-start">
+              <div className="mt-3 text-3xl text-md flex flex-col md:first-letter:flex-row justify-between items-center  ">
                 <div>
                   <p className="text-lg text-md font-bold">{currentWeather.temperature}°C   |   {currentWeather.description}</p>
                   <img
-                    className="flex md:first-letter:flex-row justify-between items-center"
+                    className="text-3xl text-md flex flex-col md:first-letter:flex-row justify-center items-center"
                     src={`https://openweathermap.org/img/wn/${currentWeather.icon}.png`}
                     alt={currentWeather.description}
                   />
+
                 </div>
 
                 <div className="text-sm font-semibold text-slate-200 mt-2">
@@ -340,7 +340,7 @@ const Home: React.FC = () => {
               <div className="mt-4">
                 <h3 className="text-xl font-bold mb-2">Hourly Forecast</h3>
                 <hr className="my-4 border-t-1 border-gray-500" />
-                <div className="flex md:first-letter:flex-row justify-between items-center">
+                <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
                   {hourlyForecast.slice(0, 5).map((hourData, index) => (
                     <div key={index} className="flex-shrink-0 mr-5">
                       <p className="text-sm">{hourData.time}</p>
@@ -355,7 +355,6 @@ const Home: React.FC = () => {
                 </div>
               </div>
             )}
-
             {fiveDayForecast && (
               <div className="mt-4">
                 <h3 className="text-xl font-bold mb-2">Daily Forecast</h3>
@@ -375,7 +374,6 @@ const Home: React.FC = () => {
                 </div>
               </div>
             )}
-
             <button onClick={fetchCurrentLocation} className="mt-4">
               <BiCurrentLocation />
             </button>
