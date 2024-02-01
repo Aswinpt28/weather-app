@@ -9,6 +9,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PositionError } from ".";
 
+import "tailwindcss/tailwind.css";
+
 interface WeatherProps {
   temperature: string;
   description: string;
@@ -253,8 +255,7 @@ const Home: React.FC = () => {
         await fetchHourlyForecastData(lat, lon);
         await fetch5DayForecastData(city);
       } else {
-        console.error(`City not found: ${city}`);
-        toast.error(`City not found: ${city}. Please enter a valid city name.`, {
+        toast.error(`Not Found: ${city}. Please enter a valid city name.`, {
           position: "top-right",
           autoClose: 3000,
           hideProgressBar: true,
@@ -274,8 +275,9 @@ const Home: React.FC = () => {
   }, [currentLocation]);
 
   return (
-    <div className="bg-cover bg-gradient-to-r from-gray-700 to-gray-300 h-screen p-6">
-      <div className="bg-black/25 mx-auto max-w-3xl mt-3 py-10 px-28 p-8 rounded-lg shadow-md">
+    <div className="bg-cover bg-gradient-to-r from-gray-700 to-gray-300 min-h-screen p-6">
+      <div className="bg-black/25 mx-auto max-w-3xl mt-3 py-10 px-4 md:px-10 lg:px-20 xl:px-28 p-8 rounded-lg shadow-md">
+
         {loading ? (
           <div className="text-white text-lg">
             <Skeleton height={30} width={200} />
@@ -286,15 +288,15 @@ const Home: React.FC = () => {
           </div>
         ) : (
           <div className="flex flex-col md:first-letter:flex-row justify-between items-center">
-            <div className="flex items-center">
+            <div className="flex flex-col md:flex-row items-center w-full md:w-auto">
               <input
                 type="text"
                 value={cityName}
                 onChange={handleInputChange}
                 placeholder="Enter city name"
-                className="w-full bg-transparent border-b-2 outline-none cursor-pointer text-white"
+                className="w-full md:w-48 lg:w-64 bg-transparent border-b-2 outline-none cursor-pointer text-white"
               />
-              <button onClick={handleSearch} className="ml-2">
+              <button onClick={handleSearch} className="md:ml-2 mt-2 md:mt-0">
                 <FaSearch />
               </button>
             </div>
@@ -303,6 +305,7 @@ const Home: React.FC = () => {
                 {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} | {new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date())} | {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }).toLowerCase()}
               </p>
             </div>
+
             {currentLocation && (
               <div className="mt-3 text-3xl text-md flex flex-col md:first-letter:flex-row justify-between items-center ">
                 <p>{currentLocation}</p>
@@ -310,7 +313,7 @@ const Home: React.FC = () => {
             )}
 
             {currentWeather && (
-              <div className="mt-2 flex flex-col md:first-letter:flex-row justify-between items-center">
+              <div className="mt-2 flex flex-col md:first-letter:flex-row justify-between items-center md:items-start">
                 <div>
                   <p className="text-lg text-md font-bold">{currentWeather.temperature}°C   |   {currentWeather.description}</p>
                   <img
@@ -337,7 +340,7 @@ const Home: React.FC = () => {
               <div className="mt-4">
                 <h3 className="text-xl font-bold mb-2">Hourly Forecast</h3>
                 <hr className="my-4 border-t-1 border-gray-500" />
-                <div className="flex md:first-letter:flex-row justify-between items-center">
+                <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
                   {hourlyForecast.slice(0, 5).map((hourData, index) => (
                     <div key={index} className="flex-shrink-0 mr-5">
                       <p className="text-sm">{hourData.time}</p>
@@ -356,7 +359,7 @@ const Home: React.FC = () => {
               <div className="mt-4">
                 <h3 className="text-xl font-bold mb-2">Daily Forecast</h3>
                 <hr className="my-4 border-t-1 border-gray-500" />
-                <div className="flex md:first-letter:flex-row justify-between items-center">
+                <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
                   {fiveDayForecast.map((dayData, index) => (
                     <div key={index} className="flex-shrink-0 mr-5">
                       <p className="text-sm">{dayData.time}</p>
