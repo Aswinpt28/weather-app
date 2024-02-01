@@ -340,7 +340,7 @@ const Home: React.FC = () => {
               <div className="mt-4">
                 <h3 className="text-xl font-bold mb-2">Hourly Forecast</h3>
                 <hr className="my-4 border-t-1 border-gray-500" />
-                <div className="flex flex-col md:flex-row justify-between items-center md:items-start">
+                <div className="flex md:first-letter:flex-row justify-between items-center">
                   {hourlyForecast.slice(0, 5).map((hourData, index) => (
                     <div key={index} className="flex-shrink-0 mr-5">
                       <p className="text-sm">{hourData.time}</p>
@@ -355,6 +355,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
             )}
+
             {fiveDayForecast && (
               <div className="mt-4">
                 <h3 className="text-xl font-bold mb-2">Daily Forecast</h3>
@@ -374,6 +375,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
             )}
+
             <button onClick={fetchCurrentLocation} className="mt-4">
               <BiCurrentLocation />
             </button>
